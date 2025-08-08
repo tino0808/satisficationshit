@@ -51,8 +51,8 @@ For Hardware:
 
 *"The water droplet burst — gravity, motion, and pure useless beauty."*
 
-## Build Photos
-![Components](Add photo of your components here) List out all components shown
+## Build Photos[
+(https://github.com/tino0808/satisficationshit/blob/b7da1751012cf2cc3592c1065d5a09eb32bdb425/Screenshot%20(735).png)
 
 ![Build](Add photos of build process here) Explain the build steps
 
