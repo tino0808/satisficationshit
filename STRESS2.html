@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Stress Ball Splash</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background: #222;
+    }
+    canvas {
+        display: block;
+    }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+
+<!-- Only using the provided water splash sound -->
+<audio id="splashSound" src="water-splash-5860.mp3" preload="auto"></audio>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const splashSound = document.getElementById("splashSound");
+
+let ball = {
+    x: canvas.width / 2,
+    y: canvas.height / 2,
+    radius: 80,
+    color: "yellow"
+};
+
+let particles = [];
+
+function createSplash(x, y) {
+    for (let i = 0; i < 15; i++) {
+        particles.push({
+            x: x,
+            y: y,
+            radius: Math.random() * 4 + 2,
+            color: "rgba(0, 150, 255, 0.8)",
+            speedX: (Math.random() - 0.5) * 8,
+            speedY: (Math.random() - 0.5) * 8,
+            gravity: 0.3,
+            bounce: 0.5,
+            life: 100
+        });
+    }
+}
+
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.fillStyle = ball.color;
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawParticles() {
+    particles.forEach((p, index) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.closePath();
+
+        // Physics
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.speedY += p.gravity;
+        p.speedX *= 0.98;
+
+        // Bounce
+        if (p.y + p.radius > canvas.height) {
+            p.y = canvas.height - p.radius;
+            p.speedY *= -p.bounce;
+        }
+
+        // Fade out
+        p.radius *= 0.98;
+        p.life--;
+
+        if (p.life <= 0 || p.radius < 0.5) {
+            particles.splice(index, 1);
+        }
+    });
+}
+
+canvas.addEventListener("mousemove", (e) => {
+    let dx = e.clientX - ball.x;
+    let dy = e.clientY - ball.y;
+    let distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance <= ball.radius) {
+        createSplash(e.clientX, e.clientY);
+
+        // Play the provided sound
+        splashSound.currentTime = 0;
+        splashSound.play();
+    }
+});
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBall();
+    drawParticles();
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+});
+</script>
+</body>
+</html>
