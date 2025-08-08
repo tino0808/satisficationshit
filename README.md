@@ -54,9 +54,10 @@ For Hardware:
 ## Build Photos[
 (https://github.com/tino0808/satisficationshit/blob/b7da1751012cf2cc3592c1065d5a09eb32bdb425/Screenshot%20(735).png)
 
-![Build](Add photos of build process here) Explain the build steps
+https://github.com/tino0808/satisficationshit/blob/3fb3aa853b79a5dcca5f453e2f2a7fe6457b83a9/Screenshot%20(736).png
 
-![Final](Add photo of final product here) Explain the final build
+https://github.com/tino0808/satisficationshit/blob/3fb3aa853b79a5dcca5f453e2f2a7fe6457b83a9/Screenshot%20(737).png
+
 ### Project Demo
 
 # Additional Demos
